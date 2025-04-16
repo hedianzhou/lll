@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>猜猜真心话</title>
+    <style>
+        body {
+            background: #ffb6c1;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ff0066;
+            font-size: 3em;
+            text-shadow: 2px 2px #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #ffffff;
+            color: #ff69b4;
+            box-shadow: 0 5px 15px rgba(255,105,180,0.3);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #ff69b4;
+            color: white;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container" id="main">
+        <h1>🤫 我喜欢你 🤫</h1>
+        <div class="buttons">
+            <button onclick="showResponse()">❤️ 同意 ❤️</button>
+            <button onclick="showResponse()">💔 拒绝 💔</button>
+        </div>
+    </div>
+
+    <div class="container" id="response1" style="display: none;">
+        <h1>🎭 第一句是假的 🎭</h1>
+        <button onclick="showFinal()">🥺 好叭 🥺</button>
+    </div>
+
+    <div class="container" id="response2" style="display: none;">
+        <h1>🎉 第二句也是假的 🎉</h1>
+    </div>
+
+    <script>
+        // 生成漂浮爱心
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 6000);
+            }, 300);
+        }
+
+        function showResponse() {
+            document.getElementById('main').style.display = 'none';
+            document.getElementById('response1').style.display = 'block';
+        }
+
+        function showFinal() {
+            document.getElementById('response1').style.display = 'none';
+            document.getElementById('response2').style.display = 'block';
+        }
+
+        // 初始化爱心动画
+        createHearts();
+    </script>
+</body>
+</html>
